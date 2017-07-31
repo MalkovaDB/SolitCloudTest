@@ -15,6 +15,7 @@ public class test {
 
     @Before
     public void setUp() throws Exception {
+        System.setProperty("webdriver.gecko.driver","/home/gravicapa/Job/solitcloudstest/test/resources/gecko/geckodriver");
         driver = new FirefoxDriver();
         baseUrl = "https://www.google.com/ncr";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
