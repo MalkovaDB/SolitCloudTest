@@ -13,4 +13,4 @@
 2. Для того, чтобы установить Gecko driver:
 
 	* Скачать нужную версию (https://github.com/mozilla/geckodriver/releases), разархивировать в test/resources/gecko.  
-	* Добавить путь к Gecko driver в test/resources/gecko, в коде указать абсолютный путь до драйвера в переменной PATH_TO_GECKODRIVER.
+	* Перенести разархивированный исполняемый файл в test/resources/gecko, в коде указать абсолютный путь до драйвера в переменной PATH_TO_GECKODRIVER.
