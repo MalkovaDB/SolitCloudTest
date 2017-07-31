@@ -12,10 +12,11 @@ public class test {
     private WebDriver driver;
     private String baseUrl;
     private StringBuffer errors = new StringBuffer();
+    final private String PATH_TO_GECKODRIVER = "/home/gravicapa/solitcloudstest/test/resources/gecko/geckodriver";
 
     @Before
     public void setUp() throws Exception {
-        System.setProperty("webdriver.gecko.driver","/home/gravicapa/Job/solitcloudstest/test/resources/gecko/geckodriver");
+        System.setProperty("webdriver.gecko.driver", PATH_TO_GECKODRIVER);
         driver = new FirefoxDriver();
         baseUrl = "https://www.google.com/ncr";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -23,9 +24,9 @@ public class test {
 
     @Test
     public void test() throws Exception {
-        String SEARCHRESULTXPATH = "//*[@class='srg']//h3/a";
-        String IMAGERESULTXPATH = "//div[@id='rg_s']//a";
-        String SELENIUMSITE = "seleniumhq.org";
+        String SEARCH_RESULT_XPATH = "//*[@class='srg']//h3/a";
+        String IMAGE_RESULT_XPATH = "//div[@id='rg_s']//a";
+        String SELENIUM_SITE = "seleniumhq.org";
 
         driver.get(baseUrl);
         driver.findElement(By.id("lst-ib")).clear();
@@ -33,24 +34,24 @@ public class test {
         driver.findElement(By.id("lst-ib")).submit();
 
         final Wait<WebDriver> wait = new WebDriverWait(driver, 5, 1000);
-        wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath(SEARCHRESULTXPATH))));
+        wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath(SEARCH_RESULT_XPATH))));
 
-        String foundResult = driver.findElements(By.xpath(SEARCHRESULTXPATH)).get(0).getAttribute("href");
+        String foundResult = driver.findElements(By.xpath(SEARCH_RESULT_XPATH)).get(0).getAttribute("href");
 
         try{
-            assertTrue(foundResult.contains(SELENIUMSITE));
+            assertTrue(foundResult.contains(SELENIUM_SITE));
         }
         catch (Error e) {
             errors.append(e.toString() + ". The result link does not apply to \"seleniumhq.org\" website.");
         }
 
         driver.findElement(By.linkText("Images")).click();
-        wait.until(ExpectedConditions.visibilityOf(driver.findElements(By.xpath(IMAGERESULTXPATH)).get(0)));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElements(By.xpath(IMAGE_RESULT_XPATH)).get(0)));
 
-        String foundImage = driver.findElements(By.xpath(IMAGERESULTXPATH)).get(0).getAttribute("href");
+        String foundImage = driver.findElements(By.xpath(IMAGE_RESULT_XPATH)).get(0).getAttribute("href");
 
         try{
-            assertTrue(foundImage.contains(SELENIUMSITE));
+            assertTrue(foundImage.contains(SELENIUM_SITE));
         }
         catch (Error e) {
             errors.append(e.toString() + ". Image link does not apply to \"seleniumhq.org\" website.");
@@ -59,7 +60,7 @@ public class test {
         driver.findElement(By.linkText("All")).click();
         wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@class='srg']//h3/a"))));
 
-        String repeatResult = driver.findElements(By.xpath(SEARCHRESULTXPATH)).get(0).getAttribute("href");
+        String repeatResult = driver.findElements(By.xpath(SEARCH_RESULT_XPATH)).get(0).getAttribute("href");
 
         try{
             assertEquals(foundResult, repeatResult);
